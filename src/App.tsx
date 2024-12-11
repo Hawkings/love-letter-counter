@@ -1,35 +1,38 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import appLogo from "/favicon.svg";
-import PWABadge from "./PWABadge.tsx";
-import "./App.css";
+import { GameState, INITIAL_STATE, isInitialState, SortOrder } from "./game";
+import { CardList } from "./CardList";
+import { Toolbar } from "./Toolbar";
+
+const MAX_HISTORY_ENTRIES = 100;
 
 function App() {
-	const [count, setCount] = useState(0);
-
+	const [stateHistory, setStateHistory] = useState<GameState[]>([
+		INITIAL_STATE,
+	]);
+	const state = stateHistory[stateHistory.length - 1];
+	const pushState = (newState: GameState) => {
+		setStateHistory([...stateHistory.slice(0, MAX_HISTORY_ENTRIES), newState]);
+	};
+	const newGame = () => {
+		pushState(INITIAL_STATE);
+	};
+	const canUndo = stateHistory.length > 1;
+	const undo = () => {
+		if (!canUndo) return;
+		setStateHistory(stateHistory.slice(0, -1));
+	};
+	const [sortOrder, setSortOrder] = useState(SortOrder.RANK);
 	return (
 		<>
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={appLogo} className="logo" alt="love-letter-counter logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>love-letter-counter</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
-			<PWABadge />
+			<CardList state={state} onStateChange={pushState} sortOrder={sortOrder} />
+			<Toolbar
+				sortOrder={sortOrder}
+				setSortOrder={setSortOrder}
+				undo={undo}
+				canUndo={canUndo}
+				startNewGame={newGame}
+				canStartNewGame={!isInitialState(state)}
+			/>
 		</>
 	);
 }
