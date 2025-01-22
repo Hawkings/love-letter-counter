@@ -46,7 +46,8 @@
 				"x64"
 			],
 			"os": [
-				"linux"
+				"linux",
+				"windows"
 			]
 		}
 	}

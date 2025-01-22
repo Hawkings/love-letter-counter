@@ -41,8 +41,7 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-      - run: npm install --platform=linux --arch=x64 --libc=musl
-      - run: npm run build
+      - run: pnpm install
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
