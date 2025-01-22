@@ -25,9 +25,7 @@ export function Card({
 			}}
 		>
 			<div className="rounded-full bg-red-700 px-3 py-1 mr-2">{n}</div>
-			<div>
-				{cardNames[n]} {window.innerWidth}
-			</div>
+			<div>{cardNames[n]}</div>
 			<div className="grow text-right"> ({remaining})</div>
 			<div> {(probability * 100).toFixed(1)}%</div>
 		</button>
