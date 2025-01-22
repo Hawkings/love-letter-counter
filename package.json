@@ -47,7 +47,7 @@
 			],
 			"os": [
 				"linux",
-				"windows"
+				"current"
 			]
 		},
 		"onlyBuiltDependencies": [
