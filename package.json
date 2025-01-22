@@ -49,6 +49,9 @@
 				"linux",
 				"windows"
 			]
-		}
+		},
+		"onlyBuiltDependencies": [
+			"sharp"
+		]
 	}
 }
