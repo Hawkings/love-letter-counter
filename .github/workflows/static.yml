@@ -41,7 +41,8 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm install --config.platform=linux --config.architecture=x64 --config.libc=musl
+      - run: pnpm install
+      - run: npm install --platform=linux --arch=x64 --libc=musl sharp
       - run: pnpm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
